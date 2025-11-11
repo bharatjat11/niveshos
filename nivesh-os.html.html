@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nivesh OS - Your Investment Operating System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --blockchain: #8e44ad;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar {
+            background-color: white;
+            border-right: 1px solid #eee;
+            min-height: 100vh;
+            padding-top: 20px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        }
+        
+        .sidebar .nav-link {
+            color: #555;
+            padding: 12px 20px;
+            margin: 5px 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 10px;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .main-content {
+            padding: 20px;
+            padding-top: 20px;
+        }
+        
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: none;
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--secondary) 0%, #5dade2 100%);
+            color: white;
+            border-radius: 12px 12px 0 0 !important;
+            font-weight: 600;
+            padding: 15px 20px;
+        }
+        
+        .stats-card {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .stats-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .stats-card h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .stats-card p {
+            color: #777;
+            margin: 0;
+        }
+        
+        .profit {
+            color: var(--success);
+        }
+        
+        .loss {
+            color: var(--accent);
+        }
+        
+        .stock-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .stock-list li {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .stock-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .news-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--secondary) 0%, #5dade2 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 600;
+        }
+        
+        .btn-blockchain {
+            background: linear-gradient(135deg, var(--blockchain) 0%, #9b59b6 100%);
+            color: white;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 30px 20px;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .section-title {
+            border-left: 5px solid var(--secondary);
+            padding-left: 15px;
+            margin: 30px 0 20px;
+        }
+        
+        .crypto-badge {
+            background: var(--blockchain);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 8px;
+        }
+        
+        .platform-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .smart-contract {
+            border-left: 3px solid var(--blockchain);
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 15px;
+        }
+        
+        .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        #backendConsole {
+            position: fixed;
+            bottom: 0;
+            right: 20px;
+            width: 300px;
+            height: 200px;
+            background: #2c3e50;
+            color: white;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            border-radius: 8px 8px 0 0;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
+        }
+        
+        #consoleToggle {
+            position: absolute;
+            top: -25px;
+            right: 0;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 8px 8px 0 0;
+            padding: 3px 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Backend Simulation Console -->
+    <button id="consoleToggle">Backend Console</button>
+    <div id="backendConsole" style="display: none;">
+        <div>Nivesh OS Backend Simulation v1.0</div>
+        <div>> Initializing server...</div>
+        <div>> Database connected successfully</div>
+        <div>> User API endpoints loaded</div>
+        <div>> Portfolio service started</div>
+        <div>> Blockchain module initialized</div>
+        <div>> Ready for requests</div>
+    </div>
+
+    <!-- Login Screen -->
+    <div id="loginScreen">
+        <div class="login-container">
+            <div class="text-center mb-4">
+                <i class="fas fa-chart-line fa-3x mb-3" style="color: #3498db;"></i>
+                <h2>Nivesh OS</h2>
+                <p class="text-muted">Your Investment Operating System</p>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Email address</label>
+                <input type="email" class="form-control" id="loginEmail" placeholder="name@example.com">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-control" id="loginPassword" placeholder="Enter your password">
+            </div>
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="rememberMe">
+                <label class="form-check-label" for="rememberMe">Remember me</label>
+            </div>
+            <button class="btn btn-primary w-100 mb-3" onclick="login()">Sign in</button>
+            <div class="text-center">
+                <a href="#" onclick="showRegister()">Create new account</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application (Initially Hidden) -->
+    <div id="appContainer" style="display: none;">
+        <!-- Navigation Bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-chart-line me-2"></i>
+                    <strong>Nivesh OS</strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-user me-1"></i> <span id="userName">User</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-1"></i> Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Sidebar -->
+                <div class="col-lg-2 col-md-3 d-md-block sidebar collapse">
+                    <div class="position-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">
+                                    <i class="fas fa-home"></i> Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-chart-pie"></i> Portfolio
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" onclick="showAddInvestment()">
+                                    <i class="fas fa-plus-circle"></i> Add Investment
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-coins"></i> Stocks
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fab fa-bitcoin"></i> Crypto
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-newspaper"></i> News
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-brain"></i> AI Analysis
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-file-contract"></i> Smart Contracts
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fas fa-cog"></i> Settings
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="mt-4 p-3 bg-light rounded">
+                            <h6>Blockchain Integration</h6>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="blockchainSwitch">
+                                <label class="form-check-label" for="blockchainSwitch">Enable Smart Contracts</label>
+                            </div>
+                            <button class="btn btn-sm btn-blockchain mt-2 w-100" onclick="connectWallet()">Connect Wallet</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-lg-10 col-md-9 main-content">
+                    <!-- Dashboard Header -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h2 class="mb-0">Investment Dashboard</h2>
+                            <p class="text-muted" id="dashboardSubtitle">Track and manage all your investments in one place</p>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <div class="btn-group">
+                                <button class="btn btn-outline-primary" onclick="refreshData()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                                <button class="btn btn-primary" onclick="showAddInvestment()"><i class="fas fa-plus"></i> Add Investment</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="row" id="statsContainer">
+                        <!-- Stats will be loaded dynamically -->
+                    </div>
+
+                    <!-- Charts and Portfolio -->
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    Portfolio Performance
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="performanceChart" height="250"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    Asset Allocation
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="allocationChart" height="250"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Investment Sections -->
+                    <div class="row mt-4">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <span>Your Stock Holdings</span>
+                                    <span class="badge bg-primary" id="stockCount">0 Stocks</span>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="stock-list" id="stockList">
+                                        <!-- Stocks will be loaded dynamically -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <span>Your Crypto Holdings</span>
+                                    <span class="badge bg-primary" id="cryptoCount">0 Assets</span>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="stock-list" id="cryptoList">
+                                        <!-- Crypto will be loaded dynamically -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blockchain Features -->
+                    <h3 class="section-title mt-5">Blockchain & Smart Contracts</h3>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card feature-card">
+                                <i class="fas fa-file-contract feature-icon"></i>
+                                <h4>Smart Contracts</h4>
+                                <p>Automate your investment strategies with secure, transparent smart contracts</p>
+                                <button class="btn btn-blockchain" onclick="showSmartContracts()">Explore Contracts</button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card feature-card">
+                                <i class="fas fa-lock feature-icon"></i>
+                                <h4>Secure Transactions</h4>
+                                <p>All your transactions are recorded on the blockchain for maximum security</p>
+                                <button class="btn btn-blockchain" onclick="showTransactions()">View Transactions</button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card feature-card">
+                                <i class="fas fa-shield-alt feature-icon"></i>
+                                <h4>Portfolio Protection</h4>
+                                <p>Use blockchain-based insurance to protect your investments from market downturns</p>
+                                <button class="btn btn-blockchain" onclick="showInsurance()">Get Protected</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sample Smart Contract -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="fas fa-file-contract me-2"></i> Sample Investment Smart Contract
+                                    <span class="platform-tag">Ethereum</span>
+                                </div>
+                                <div class="card-body">
+                                    <div class="smart-contract">
+                                        <h5>Auto-Balancing Portfolio Contract</h5>
+                                        <p>This contract automatically rebalances your portfolio based on market conditions</p>
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <strong>Contract Address:</strong>
+                                                <p class="text-muted">0x742d35Cc6634C0532925a3b844Bc454e4438f44e</p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <strong>Balance:</strong>
+                                                <p class="text-muted">2.4 ETH</p>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <strong>Status:</strong>
+                                                <span class="badge bg-success">Active</span>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-sm btn-blockchain mt-2" onclick="executeContract()">Execute Contract</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- News Section -->
+                    <h3 class="section-title mt-5">Market News & Insights</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="fas fa-newspaper me-2"></i> Financial News
+                                </div>
+                                <div class="card-body" id="newsContainer">
+                                    <!-- News will be loaded dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="fas fa-bolt me-2"></i> AI Investment Insights
+                                </div>
+                                <div class="card-body" id="aiInsightsContainer">
+                                    <!-- AI Insights will be loaded dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="bg-dark text-white text-center py-4 mt-5">
+            <p class="mb-0">© 2023 Nivesh OS - All your investment needs in one platform</p>
+            <p class="mb-0">Built with <i class="fas fa-heart text-danger"></i> for the future of investing</p>
+        </footer>
+    </div>
+
+    <!-- Add Investment Modal -->
+    <div class="modal fade" id="addInvestmentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Investment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Investment Type</label>
+                        <select class="form-select" id="investmentType">
+                            <option value="stock">Stock</option>
+                            <option value="crypto">Cryptocurrency</option>
+                            <option value="mutual_fund">Mutual Fund</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" id="investmentName" placeholder="e.g., Reliance Industries">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Symbol</label>
+                        <input type="text" class="form-control" id="investmentSymbol" placeholder="e.g., RELIANCE">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="investmentQuantity" placeholder="e.g., 10">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Buy Price (₹)</label>
+                            <input type="number" class="form-control" id="investmentPrice" placeholder="e.g., 2450.50">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="addInvestment()">Add Investment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Backend Simulation Data
+        const backend = {
+            users: [
+                { id: 1, email: 'user@niveshos.com', password: 'password123', name: 'Rahul Sharma' }
+            ],
+            investments: {
+                1: [
+                    { id: 1, type: 'stock', name: 'Reliance Industries', symbol: 'RELIANCE', quantity: 10, buyPrice: 2450, currentPrice: 2580 },
+                    { id: 2, type: 'stock', name: 'Tata Consultancy Services', symbol: 'TCS', quantity: 15, buyPrice: 3250, currentPrice: 3540 },
+                    { id: 3, type: 'stock', name: 'HDFC Bank', symbol: 'HDFCBANK', quantity: 20, buyPrice: 1420, currentPrice: 1380 },
+                    { id: 4, type: 'stock', name: 'Infosys', symbol: 'INFY', quantity: 12, buyPrice: 1580, currentPrice: 1650 },
+                    { id: 5, type: 'crypto', name: 'Bitcoin', symbol: 'BTC', quantity: 0.025, buyPrice: 2250000, currentPrice: 2320000 },
+                    { id: 6, type: 'crypto', name: 'Ethereum', symbol: 'ETH', quantity: 0.4, buyPrice: 125000, currentPrice: 128000 },
+                    { id: 7, type: 'crypto', name: 'Polygon', symbol: 'MATIC', quantity: 120, buyPrice: 55, currentPrice: 52 },
+                    { id: 8, type: 'crypto', name: 'Cardano', symbol: 'ADA', quantity: 200, buyPrice: 38, currentPrice: 39 }
+                ]
+            },
+            news: [
+                { title: 'RBI Keeps Interest Rates Unchanged', content: 'The Reserve Bank of India has decided to maintain the current repo rate at 6.5%...', source: 'Economic Times', time: '2 hours ago' },
+                { title: 'Reliance Announces New Green Energy Initiative', content: 'Reliance Industries will invest ₹75,000 crore in renewable energy projects...', source: 'Business Standard', time: '5 hours ago' },
+                { title: 'Global Markets Rally as Inflation Concerns Ease', content: 'Stock markets worldwide saw gains as latest data showed inflation cooling down...', source: 'Bloomberg', time: 'Yesterday' }
+            ],
+            aiInsights: [
+                { type: 'success', title: 'AI Recommendation', content: 'Our AI suggests increasing exposure to technology stocks by 5% based on market trends.' },
+                { type: 'info', title: 'Portfolio Analysis', content: 'Your portfolio is well-diversified but could benefit from more international exposure.' },
+                { type: 'warning', title: 'Risk Alert', content: 'High volatility detected in crypto markets. Consider setting stop-loss orders.' }
+            ],
+            currentUser: null,
+            
+            // Simulate API calls with delays
+            simulateRequest: (action) => {
+                logToConsole(`> API Request: ${action}`);
+                return new Promise(resolve => setTimeout(resolve, 800));
+            },
+            
+            // User authentication
+            login: (email, password) => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        const user = backend.users.find(u => u.email === email && u.password === password);
+                        if (user) {
+                            backend.currentUser = user;
+                            logToConsole(`> User logged in: ${user.email}`);
+                            resolve({ success: true, user });
+                        } else {
+                            logToConsole(`> Login failed for: ${email}`);
+                            resolve({ success: false, error: 'Invalid credentials' });
+                        }
+                    }, 1000);
+                });
+            },
+            
+            // Get user investments
+            getInvestments: (userId) => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        const investments = backend.investments[userId] || [];
+                        logToConsole(`> Fetched ${investments.length} investments for user ${userId}`);
+                        resolve(investments);
+                    }, 600);
+                });
+            },
+            
+            // Add new investment
+            addInvestment: (userId, investment) => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        if (!backend.investments[userId]) {
+                            backend.investments[userId] = [];
+                        }
+                        
+                        // Generate a unique ID and add current price
+                        investment.id = Date.now();
+                        investment.currentPrice = investment.buyPrice * (0.9 + Math.random() * 0.2); // Random price change
+                        
+                        backend.investments[userId].push(investment);
+                        logToConsole(`> Added new investment: ${investment.name}`);
+                        resolve({ success: true, investment });
+                    }, 800);
+                });
+            },
+            
+            // Get news
+            getNews: () => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        logToConsole('> Fetched latest news');
+                        resolve(backend.news);
+                    }, 500);
+                });
+            },
+            
+            // Get AI insights
+            getAIInsights: () => {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        logToConsole('> Generated AI insights');
+                        resolve(backend.aiInsights);
+                    }, 700);
+                });
+            }
+        };
+
+        // DOM Helper Functions
+        function logToConsole(message) {
+            const console = document.getElementById('backendConsole');
+            const div = document.createElement('div');
+            div.textContent = message;
+            console.appendChild(div);
+            console.scrollTop = console.scrollHeight;
+        }
+
+        function showConsole() {
+            const console = document.getElementById('backendConsole');
+            console.style.display = console.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function showRegister() {
+            alert('Registration functionality would be implemented in a real application.');
+        }
+
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                alert('Please enter both email and password');
+                return;
+            }
+            
+            backend.login(email, password).then(result => {
+                if (result.success) {
+                    document.getElementById('loginScreen').style.display = 'none';
+                    document.getElementById('appContainer').style.display = 'block';
+                    document.getElementById('userName').textContent = result.user.name;
+                    loadDashboard();
+                } else {
+                    alert('Login failed: ' + result.error);
+                }
+            });
+        }
+
+        function logout() {
+            backend.currentUser = null;
+            document.getElementById('appContainer').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'block';
+            logToConsole('> User logged out');
+        }
+
+        function loadDashboard() {
+            // Show loading state
+            document.getElementById('dashboardSubtitle').textContent = 'Loading your data...';
+            
+            // Load investments
+            backend.getInvestments(backend.currentUser.id).then(investments => {
+                renderInvestments(investments);
+                updateCharts(investments);
+                updateStats(investments);
+            });
+            
+            // Load news
+            backend.getNews().then(news => {
+                renderNews(news);
+            });
+            
+            // Load AI insights
+            backend.getAIInsights().then(insights => {
+                renderAIInsights(insights);
+            });
+        }
+
+        function renderInvestments(investments) {
+            const stocks = investments.filter(i => i.type === 'stock');
+            const crypto = investments.filter(i => i.type === 'crypto');
+            
+            // Update counts
+            document.getElementById('stockCount').textContent = `${stocks.length} Stocks`;
+            document.getElementById('cryptoCount').textContent = `${crypto.length} Assets`;
+            
+            // Render stocks
+            const stockList = document.getElementById('stockList');
+            stockList.innerHTML = '';
+            
+            stocks.forEach(stock => {
+                const gain = ((stock.currentPrice - stock.buyPrice) / stock.buyPrice) * 100;
+                const value = stock.quantity * stock.currentPrice;
+                
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div>
+                        <strong>${stock.symbol}</strong>
+                        <div class="text-muted small">${stock.quantity} shares</div>
+                    </div>
+                    <div class="text-end">
+                        <div>₹${value.toLocaleString('en-IN')}</div>
+                        <div class="${gain >= 0 ? 'profit' : 'loss'}">${gain >= 0 ? '+' : ''}${gain.toFixed(1)}%</div>
+                    </div>
+                `;
+                stockList.appendChild(li);
+            });
+            
+            // Render crypto
+            const cryptoList = document.getElementById('cryptoList');
+            cryptoList.innerHTML = '';
+            
+            crypto.forEach(crypto => {
+                const gain = ((crypto.currentPrice - crypto.buyPrice) / crypto.buyPrice) * 100;
+                const value = crypto.quantity * crypto.currentPrice;
+                
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div>
+                        <strong>${crypto.name} <span class="crypto-badge">${crypto.symbol}</span></strong>
+                        <div class="text-muted small">${crypto.quantity} ${crypto.symbol}</div>
+                    </div>
+                    <div class="text-end">
+                        <div>₹${value.toLocaleString('en-IN')}</div>
+                        <div class="${gain >= 0 ? 'profit' : 'loss'}">${gain >= 0 ? '+' : ''}${gain.toFixed(1)}%</div>
+                    </div>
+                `;
+                cryptoList.appendChild(li);
+            });
+        }
+
+        function updateStats(investments) {
+            let totalValue = 0;
+            let totalGain = 0;
+            let stocksValue = 0;
+            let cryptoValue = 0;
+            
+            investments.forEach(investment => {
+                const value = investment.quantity * investment.currentPrice;
+                const gain = (investment.currentPrice - investment.buyPrice) * investment.quantity;
+                
+                totalValue += value;
+                totalGain += gain;
+                
+                if (investment.type === 'stock') {
+                    stocksValue += value;
+                } else if (investment.type === 'crypto') {
+                    cryptoValue += value;
+                }
+            });
+            
+            const totalGainPercent = (totalGain / (totalValue - totalGain)) * 100;
+            
+            document.getElementById('statsContainer').innerHTML = `
+                <div class="col-xl-3 col-md-6">
+                    <div class="card stats-card">
+                        <i class="fas fa-wallet"></i>
+                        <h2>₹${Math.round(totalValue).toLocaleString('en-IN')}</h2>
+                        <p>Total Portfolio Value</p>
+                        <span class="${totalGainPercent >= 0 ? 'profit' : 'loss'}">${totalGainPercent >= 0 ? '+' : ''}${totalGainPercent.toFixed(1)}% <i class="fas fa-arrow-${totalGainPercent >= 0 ? 'up' : 'down'}"></i></span>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card stats-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h2>₹${Math.round(totalGain).toLocaleString('en-IN')}</h2>
+                        <p>Total Gain</p>
+                        <span class="${totalGain >= 0 ? 'profit' : 'loss'}">${totalGainPercent >= 0 ? '+' : ''}${totalGainPercent.toFixed(1)}% <i class="fas fa-arrow-${totalGainPercent >= 0 ? 'up' : 'down'}"></i></span>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card stats-card">
+                        <i class="fas fa-rupee-sign"></i>
+                        <h2>₹${Math.round(stocksValue).toLocaleString('en-IN')}</h2>
+                        <p>Stocks Value</p>
+                        <span class="profit">+7.3% <i class="fas fa-arrow-up"></i></span>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card stats-card">
+                        <i class="fab fa-bitcoin"></i>
+                        <h2>₹${Math.round(cryptoValue).toLocaleString('en-IN')}</h2>
+                        <p>Crypto Value</p>
+                        <span class="loss">-2.1% <i class="fas fa-arrow-down"></i></span>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('dashboardSubtitle').textContent = 'Track and manage all your investments in one place';
+        }
+
+        function updateCharts(investments) {
+            // Performance Chart
+            const perfChart = document.getElementById('performanceChart');
+            if (window.performanceChartInstance) {
+                window.performanceChartInstance.destroy();
+            }
+            
+            window.performanceChartInstance = new Chart(perfChart, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Portfolio Value (₹)',
+                        data: [120000, 125000, 132000, 140000, 138000, 145000, 152000, 158000, 162000, 170000, 175000, 185240],
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Portfolio Growth 2023'
+                        }
+                    }
+                }
+            });
+
+            // Allocation Chart
+            const allocChart = document.getElementById('allocationChart');
+            if (window.allocationChartInstance) {
+                window.allocationChartInstance.destroy();
+            }
+            
+            window.allocationChartInstance = new Chart(allocChart, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Stocks', 'Cryptocurrency', 'Mutual Funds', 'Fixed Deposits'],
+                    datasets: [{
+                        data: [46, 23, 20, 11],
+                        backgroundColor: [
+                            '#3498db',
+                            '#8e44ad',
+                            '#2ecc71',
+                            '#f39c12'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderNews(news) {
+            const newsContainer = document.getElementById('newsContainer');
+            newsContainer.innerHTML = '';
+            
+            news.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'news-item';
+                div.innerHTML = `
+                    <h5>${item.title}</h5>
+                    <p class="text-muted">${item.content}</p>
+                    <small class="text-muted">${item.time} | ${item.source}</small>
+                `;
+                newsContainer.appendChild(div);
+            });
+        }
+
+        function renderAIInsights(insights) {
+            const insightsContainer = document.getElementById('aiInsightsContainer');
+            insightsContainer.innerHTML = '';
+            
+            insights.forEach(insight => {
+                const div = document.createElement('div');
+                div.className = `alert alert-${insight.type}`;
+                div.innerHTML = `
+                    <h6><i class="fas fa-${insight.type === 'success' ? 'lightbulb' : insight.type === 'info' ? 'robot' : 'exclamation-triangle'} me-2"></i> ${insight.title}</h6>
+                    <p class="mb-0">${insight.content}</p>
+                `;
+                insightsContainer.appendChild(div);
+            });
+        }
+
+        function showAddInvestment() {
+            const modal = new bootstrap.Modal(document.getElementById('addInvestmentModal'));
+            modal.show();
+        }
+
+        function addInvestment() {
+            const type = document.getElementById('investmentType').value;
+            const name = document.getElementById('investmentName').value;
+            const symbol = document.getElementById('investmentSymbol').value;
+            const quantity = parseFloat(document.getElementById('investmentQuantity').value);
+            const buyPrice = parseFloat(document.getElementById('investmentPrice').value);
+            
+            if (!name || !symbol || !quantity || !buyPrice) {
+                alert('Please fill all fields');
+                return;
+            }
+            
+            const investment = { type, name, symbol, quantity, buyPrice };
+            
+            backend.addInvestment(backend.currentUser.id, investment).then(result => {
+                if (result.success) {
+                    // Close modal
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('addInvestmentModal'));
+                    modal.hide();
+                    
+                    // Refresh dashboard
+                    loadDashboard();
+                    
+                    // Show success message
+                    alert('Investment added successfully!');
+                }
+            });
+        }
+
+        function refreshData() {
+            logToConsole('> Manual refresh triggered');
+            loadDashboard();
+        }
+
+        function connectWallet() {
+            logToConsole('> Connecting to blockchain wallet...');
+            const btn = document.querySelector('.btn-blockchain');
+            btn.textContent = 'Connecting...';
+            
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> Wallet Connected';
+                btn.classList.remove('btn-blockchain');
+                btn.classList.add('btn-success');
+                
+                // Show notification
+                const alert = document.createElement('div');
+                alert.className = 'alert alert-success alert-dismissible fade show position-fixed';
+                alert.style.top = '20px';
+                alert.style.right = '20px';
+                alert.style.zIndex = '1000';
+                alert.style.width = '300px';
+                alert.innerHTML = 'Wallet connected successfully!<button type="button" class="btn-close" data-bs-dismiss="alert"></button>';
+                document.body.appendChild(alert);
+            }, 1500);
+        }
+
+        function showSmartContracts() {
+            alert('Smart contracts interface would open here in the full application.');
+        }
+
+        function showTransactions() {
+            alert('Transaction history would be displayed here in the full application.');
+        }
+
+        function showInsurance() {
+            alert('Portfolio protection options would be shown here in the full application.');
+        }
+
+        function executeContract() {
+            alert('Smart contract would be executed here in the full application.');
+        }
+
+        // Initialize console toggle
+        document.getElementById('consoleToggle').addEventListener('click', showConsole);
+
+        // Initialize charts variables
+        window.performanceChartInstance = null;
+        window.allocationChartInstance = null;
+
+        // Log initial messages
+        logToConsole('> Nivesh OS Backend Simulation v1.0');
+        logToConsole('> Initializing server...');
+        logToConsole('> Database connected successfully');
+        logToConsole('> User API endpoints loaded');
+        logToConsole('> Portfolio service started');
+        logToConsole('> Blockchain module initialized');
+        logToConsole('> Ready for requests');
+    </script>
+</body>
+</html>
